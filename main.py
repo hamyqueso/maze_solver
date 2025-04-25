@@ -1,54 +1,32 @@
-from tkinter import Tk, BOTH, Canvas
-
-class Window():
-    def __init__(self, width, height):
-        self.__root = Tk()
-        self.__root.title("Maze Solver")
-        self.canvas = Canvas(self.__root, width=width, height=height)
-
-        self.canvas.pack()
-        self.running = False
-        self.__root.protocol("WM_DELETE_WINDOW", self.close)
-
-    def redraw(self):
-        self.__root.update_idletasks()
-        self.__root.update()
-
-    def wait_for_close(self):
-        self.running = True
-        while self.running:
-            self.redraw()
-
-    def close(self):
-        self.running = False
-    
-    def draw_line(self, line, fill_color):
-        line.draw(self.canvas, fill_color)
-
-class Point():
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-
-class Line():
-    def __init__(self, point1, point2):
-        self.__point1 = point1
-        self.__point2 = point2
-
-    def draw(self, canvas, fill_color):
-        canvas.create_line(
-            self.__point1.x, self.__point1.y, self.__point2.x, self.__point2.y, fill = fill_color, width = 2
-            )
+from cell import Cell
+from graphics import Window
         
-
 def main():
     win = Window(800, 600)
-    line1 = Line(Point(20, 30), Point(40, 50))
-    line2 = Line(Point(100, 30), Point(100, 160))
-    line3 = Line(Point(20, 550), Point(780, 550))
-    win.draw_line(line1, "black")
-    win.draw_line(line2, "red")
-    win.draw_line(line3, 'blue')
+    # line1 = Line(Point(20, 30), Point(40, 50))
+    # line2 = Line(Point(100, 30), Point(100, 160))
+    # line3 = Line(Point(20, 550), Point(780, 550))
+    # win.draw_line(line1, "black")
+    # win.draw_line(line2, "red")
+    # win.draw_line(line3, 'blue')
+
+    cell = Cell(window=win)
+    cell.draw(x1= 100, y1= 100, x2 = 200, y2=200)
+
+    cell = Cell(window=win)
+    cell.has_bottom_wall = False
+    cell.has_right_wall = False
+    cell.draw(x1= 300, y1= 100, x2 = 400, y2=200)
+
+    cell = Cell(window=win)
+    cell.has_top_wall = False
+    cell.draw(x1= 300, y1= 400, x2 = 400, y2=500)
+
+    cell = Cell(window=win)
+    cell.has_top_wall = False
+    cell.has_left_wall = False
+    cell.draw(x1= 500, y1= 300, x2 = 600, y2=400)
+
     win.wait_for_close()
 
 if __name__ == "__main__":
