@@ -41,7 +41,7 @@ class Tests(unittest.TestCase):
             num_rows,
         )
     
-    def check_maze_entrance_and_exit(self):
+    def test_maze_entrance_and_exit(self):
         num_cols = 18
         num_rows = 15
         m1 = Maze(10, 70, num_rows, num_cols, 10, 10)
@@ -50,6 +50,18 @@ class Tests(unittest.TestCase):
         )
         self.assertFalse(
             m1._cells[num_cols-1][num_rows-1].has_right_wall
+        )
+    
+    def test_reset_visited_after_break_walls(self):
+        num_cols = 18
+        num_rows = 15
+        m1 = Maze(10, 70, num_rows, num_cols, 10, 10)
+        self.assertFalse(
+            m1._cells[0][0].visited
+        )
+
+        self.assertFalse(
+            m1._cells[12][13].visited
         )
 
 if __name__ == "__main__":
