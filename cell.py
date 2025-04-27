@@ -29,10 +29,17 @@ class Cell():
         if self.has_left_wall:
             line = Line(Point(self._x1, self._y1), Point(self._x1, self._y2))
             self._win.draw_line(line)
+        else:
+            line = Line(Point(self._x1, self._y1), Point(self._x1, self._y2))
+            self._win.draw_line(line, "white")
+
         
         if self.has_right_wall:
             line = Line(Point(self._x2, self._y1), Point(self._x2, self._y2))
             self._win.draw_line(line)
+        else:
+            line = Line(Point(self._x2, self._y1), Point(self._x2, self._y2))
+            self._win.draw_line(line, "white")
 
         if self.has_top_wall:
             line = Line(Point(self._x1, self._y1), Point(self._x2, self._y1))
@@ -51,4 +58,12 @@ class Cell():
         other_center = Point((to_cell._x1 + to_cell._x2) // 2, (to_cell._y1 + to_cell._y2) // 2)
 
         self._win.draw_line(Line(self_center, other_center), fill_color)
+
+    def create_entrance(self):
+        line = Line(Point(self._x1, self._y1), Point(self._x1, self._y2))
+        self._win.draw_line(line, "white")
+    
+    def create_exit(self):
+        line = Line(Point(self._x2, self._y1), Point(self._x2, self._y2))
+        self._win.draw_line(line, "white")
 
